@@ -8,6 +8,8 @@ BOLD="\\033[1m"
 interfacesDir="/etc/network/interfaces"
 tmpInterfacesDir="/tmp/tmpInterfaces"
 
+#ifconfig -a | egrep '^[^ ]' |  awk '{ if($1 != "lo") print $1}'
+
 if [ -f "$tmpInterfacesDir" ]; then
 rm "$tmpInterfacesDir"
 touch "$tmpInterfacesDir"
@@ -71,7 +73,7 @@ do
 
 	touch "$tmpInterfacesDir"
 
-	printf "auto eth0\niface eth0 inet static\n\n" >> "$tmpInterfacesDir"
+	printf "auto eth0\niface eth0 inet static\n\n" > "$tmpInterfacesDir"
 	printf "address $ipAddress\nnetmask 255.255.255.255\nbroadcast $ipAddress\n\n" >> "$tmpInterfacesDir"
 	printf "post-up route add $gwAddress dev eth0\npost-up route add default gw $gwAddress\n" >> "$tmpInterfacesDir"
 	printf "post-down route del $gwAddress dev eth0\npost-down route del default gw $gwAddress" >> "$tmpInterfacesDir"
@@ -104,5 +106,5 @@ if [ -f "$interfacesDir" ]; then
 mv "$interfacesDir" "$interfacesDir".old
 fi
 mv "$tmpInterfacesDir" "$interfacesDir"
-echo -ne "Configuration de votre interface reseau... $GREENfait$NORMAL\r"
+echo -ne "Configuration de votre interface reseau... ""$GREEN""fait""$NORMAL""\r"
 echo ""
