@@ -1,0 +1,40 @@
+====================================================================================
+=================================== LFTP command ===================================
+====================================================================================
+
+lftp is awesome
+I’ve been looking for a command line ftp utility that does tab completion and supports sftp. lftp is it! It comes pre-installed on Ubuntu 9.04 Jaunty.
+
+change directory: cd
+
+change local directory: lcd
+
+list directory contents: ls
+
+list local directory contents: !ls
+
+print local working directory: lpwd
+
+Put a file: put filename
+
+Put multiple files: mput filename1 filename2
+
+Get a file: get filename
+
+Get multiple files: mget filename1 filename2
+
+To login to a host with sftp:
+
+lftp -u username sftp://username.server.com
+
+To get a folder including all subfolders:
+
+mirror filename
+
+To put a whole folder and all its contents, without mirroring file permissions:
+
+mirror -R -p filename
+
+En somme, on fait la commande qu'on veut avec "!" devant pour la faire en local :)
+
+source : http://likesalmon.net/lftp-is-awesome/

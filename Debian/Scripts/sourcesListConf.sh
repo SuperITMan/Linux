@@ -13,7 +13,7 @@ rm "$tmpSourceListDir"
 fi
 touch "$tmpSourceListDir"
 
-while [ "$isGoodConfig" != "o" ] && [ "$isGoodConfig" != "O" ];
+while [ "$isGoodSourcesList" != "o" ] && [ "$isGoodSourcesList" != "O" ];
 do
 	echo "#Sources list\n" > "$tmpSourceListDir"
 	
@@ -51,11 +51,11 @@ do
 	echo "Voici votre configuration du liste de sources. Merci de confirmer celle-ci plus bas."
 	echo ""
 	echo "-------------------------------------------------------------"
-	cat "$tmpNmServerDir"
+	cat "$tmpSourceListDir"
 	echo ""
 	echo "-------------------------------------------------------------"
 	
-	read -p "Confirmez-vous la configuration de l'interface reseau ? ([O]ui ou [Non]) : " -n1 isGoodSourcesList
+	read -p "Confirmez-vous la configuration de la liste de sources ? ([O]ui ou [Non]) : " -n1 isGoodSourcesList
 	echo ""
 	
 	while [ "$isGoodSourcesList" != "n" ] && [ "$isGoodSourcesList" != "N" ] && [ "$isGoodSourcesList" != "o" ] && [ "$isGoodSourcesList" != "O" ];
