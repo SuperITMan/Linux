@@ -1,0 +1,21 @@
+# Disk DescriptorFile
+version=1
+encoding="windows-1252"
+CID=09f8248e
+parentCID=ffffffff
+isNativeSnapshot="no"
+createType="monolithicFlat"
+
+# Extent description
+RW 104448 FLAT "DebianScripts-flat.vmdk" 0
+
+# The Disk Data Base 
+#DDB
+
+ddb.adapterType = "lsilogic"
+ddb.geometry.cylinders = "51"
+ddb.geometry.heads = "64"
+ddb.geometry.sectors = "32"
+ddb.longContentID = "0d9f7d91f5c3e0d97353fbb709f8248e"
+ddb.uuid = "60 00 C2 95 40 25 11 79-85 b4 f0 17 9f b1 50 bf"
+ddb.virtualHWVersion = "11"
