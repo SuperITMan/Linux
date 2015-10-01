@@ -28,7 +28,7 @@ do
 	clear
 cat<<EOF
 ==============================================================
-	Configuration Debian
+                    Configuration Debian
 ==============================================================
 Veuillez choisir votre option
 
