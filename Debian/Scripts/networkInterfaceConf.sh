@@ -108,3 +108,7 @@ fi
 mv "$tmpInterfacesDir" "$interfacesDir"
 echo -ne "Configuration de votre interface reseau... ""$GREEN""fait""$NORMAL""\r"
 echo ""
+echo -ne "Redémarrage de votre interface reseau...\r"
+ifup eth0
+echo -ne "Redémarrage de votre interface reseau... ""$GREEN""fait""$NORMAL""\r"
+echo ""
