@@ -15,7 +15,7 @@ touch "$tmpNmServerDir"
 
 while [ "$isGoodNameServer" != "o" ] && [ "$isGoodNameServer" != "O" ];
 do
-	echo "#Name Servers\n" > "$tmpNmServerDir"
+	print "#Name Servers\n" > "$tmpNmServerDir"
 	
 	#NameServer OVH 213.186.33.99
 	while [ "$isGoodOVH" != "o" ] && [ "$isGoodOVH" != "O" ] && [ "$isGoodOVH" != "n" ] && [ "$isGoodOVH" != "N" ];
