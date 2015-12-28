@@ -46,40 +46,50 @@ do
 	print "# Ne pas casser les connexions etablies\n"	>>	"$tmpFirewallDir"
 	print "iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT\n"	>>	"$tmpFirewallDir"
 	print "iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT\n\n"	>>	"$tmpFirewallDir"
+	print "# ---\n\n"	>>	"$tmpFirewallDir"
 	
 	#Loopback
 	print "# Autoriser loopback\n"	>>	"$tmpFirewallDir"
 	print "iptables -t filter -A INPUT -i lo -j ACCEPT\n"	>>	"$tmpFirewallDir"
 	print "iptables -t filter -A OUTPUT -o lo -j ACCEPT\n\n"	>>	"$tmpFirewallDir"
+	print "# ---\n\n"	>>	"$tmpFirewallDir"
 	
 	#Ping
 	print "# ICMP (Ping)\n"	>>	"$tmpFirewallDir"
 	print "iptables -t filter -A INPUT -p icmp -j ACCEPT\n"	>>	"$tmpFirewallDir"
 	print "iptables -t filter -A OUTPUT -p icmp -j ACCEPT\n\n"	>>	"$tmpFirewallDir"
-	print "# ---\n\n"
+	print "# ---\n\n"	>>	"$tmpFirewallDir"
 	
 	#SSH
-	if [ -z "$sshPort" ]; then
-		tmpSSHPort="22"
-	else
-		tmpSSHPort="$sshPort"
-	fi
-	echo -n "Veuillez entrer le port SSH configuré sur votre ordinateur "
+	print "# Autoriser les connexions SSH\n" >> "$tmpFirewallDir"
+	print "iptables -A INPUT -p tcp --dport ${SSH_CLIENT##* } -j ACCEPT" >> "$tmpFirewallDir"
+	print "# ---\n\n"	>>	"$tmpFirewallDir"
 	
-	while [ "$isGoodOVH" != "o" ] && [ "$isGoodOVH" != "O" ] && [ "$isGoodOVH" != "n" ] && [ "$isGoodOVH" != "N" ];
-	do
-		echo -e "Desirez-vous avoir le $BOLDDNS OVH$NORMAL en nameserver [213.186.33.99] ? ([O]ui ou [Non]) : \c"
-		read -n1 isGoodOVH
+	echo "Voici votre configuration du pare-feu. Merci de confirmer celle-ci plus bas."
+	echo ""
+	echo "-------------------------------------------------------------"
+	cat  "$tmpFirewallDir"
+	echo ""
+	echo "-------------------------------------------------------------"
+	
+	read -p "Confirmez-vous la configuration du pare-feu ? ([O]ui ou [Non]) : " -n1 isGoodConfig
+	echo ""
+	while [ "$isGoodConfig" != "n" ] && [ "$isGoodConfig" != "N" ] && [ "$isGoodConfig" != "o" ] && [ "$isGoodConfig" != "O" ];
+		do
+		echo "Erreur ! Veuillez répondre [O]ui ou [N]on"
+		read -p "Confirmez-vous la configuration du pare-feu ? ([O]ui ou [Non]) : " -n1 isGoodConfig
 		echo ""
-		
-		if [ "$isGoodOVH" != "o" ] && [ "$isGoodOVH" != "O" ] && [ "$isGoodOVH" != "n" ] && [ "$isGoodOVH" != "N" ]
-		then 
-			echo "Erreur ! Veuillez répondre [O]ui ou [N]on."
-		fi
 	done
-	
-	if [ "$isGoodOVH" == "o" ] || [ "$isGoodOVH" == "O" ]
-	then
-		printf "nameserver 213.186.33.99\n" >> "$tmpNmServerDir"
+	if [ "$isGoodConfig" == "n" ] || [ "$isGoodConfig" == "N" ]
+		then 
+			echo "Erreur ! Veuillez recommencer."
 	fi
 done
+
+echo -ne "Configuration de votre pare-feu...\r"
+if [ -f "$firewallDir" ]; then
+mv "$firewallDir" "$firewallDir".old
+fi
+mv "$tmpFirewallDir" "$firewallDir"
+echo -ne "Configuration de votre interface pare-feu... ""$GREEN""fait""$NORMAL""\r"
+echo ""

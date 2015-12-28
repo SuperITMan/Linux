@@ -90,7 +90,7 @@ do
 	while [ "$isGoodConfig" != "n" ] && [ "$isGoodConfig" != "N" ] && [ "$isGoodConfig" != "o" ] && [ "$isGoodConfig" != "O" ];
 		do
 		echo "Erreur ! Veuillez répondre [O]ui ou [N]on"
-		read -p "$gwAddress est-elle bien l'adresse désirée ? ([O]ui ou [Non]) : " -n1 isGoodConfig
+		read -p "Confirmez-vous la configuration de l'interface reseau ? ([O]ui ou [Non]) : " -n1 isGoodConfig
 		echo ""
 	done
 	if [ "$isGoodConfig" == "n" ] || [ "$isGoodConfig" == "N" ]
