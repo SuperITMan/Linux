@@ -5,18 +5,24 @@ VERT="\\033[1;32m"
 ROUGE="\\033[1;31m"
 NORMAL="\\033[0;39m"
 
+ping -c3 8.8.8.8
+test_ping=$?
+if [ $test_ping -ne 0 ]
+then
 #Téléchargement des scripts sur github
 echo "Téléchargement des scripts pour le fonctionnement du panel."
-echo -ne '0%  [                                                                      >]\r'
+echo -ne '0%   [                                                                      >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Linux/master/Debian/Scripts/networkInterfaceConf.sh -O networkInterfaceConf.sh
-echo -ne '0%  [                                                                      >]\r'
+echo -ne '33%  [========================                                              >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Linux/master/Debian/Scripts/networkNameserverConf.sh -O networkNameserverConf.sh
-echo -ne '0%  [                                                                      >]\r'
+echo -ne '66% [================================================                      >]\r'
 sleep 1
 wget -q https://raw.githubusercontent.com/SuperITMan/Linux/master/Debian/Scripts/sourcesListConf.sh -O sourcesListConf.sh
-
+echo -ne '100% [======================================================================>]\r'
+sleep 1
+fi
 
 #Attribution des droits nécessaires à l'exécution des scripts
 chmod +x networkInterfaceConf.sh
